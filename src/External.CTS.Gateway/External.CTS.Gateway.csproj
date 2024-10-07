@@ -12,4 +12,8 @@
     <PackageReference Include="Ocelot" Version="23.3.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\External.CTS.Core\External.CTS.Core.csproj" />
+  </ItemGroup>
+
 </Project>

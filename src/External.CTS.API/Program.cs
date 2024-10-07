@@ -1,3 +1,6 @@
+using External.CTS.API.Services;
+using External.CTS.Core.Utility;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,6 +20,14 @@ builder.Services.AddCors(options =>
                   .AllowAnyHeader();
         });
 });
+
+SD.GatewayAPIBase = builder.Configuration["ServiceUrls:GatewayAPI"];
+
+builder.Services.AddHttpClient();
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<IBaseService, BaseService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 var app = builder.Build();
 

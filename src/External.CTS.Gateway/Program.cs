@@ -1,3 +1,4 @@
+using External.CTS.Core.Utility;
 using External.CTS.Gateway.Extensions;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
@@ -14,6 +15,7 @@ else
 }
 builder.Services.AddOcelot(builder.Configuration);
 
+SD.AuthAPIBase = builder.Configuration["ServiceUrls:AuthAPI"];
 
 var app = builder.Build();
 
