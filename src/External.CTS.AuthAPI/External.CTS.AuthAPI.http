@@ -1,6 +1,0 @@
-@External.CTS.AuthAPI_HostAddress = http://localhost:5062
-
-GET {{External.CTS.AuthAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
