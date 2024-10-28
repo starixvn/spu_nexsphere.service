@@ -8,7 +8,14 @@ using System.Threading.Tasks;
 
 namespace NexSphere.Core.Services
 {
-    public class JwtTokenService
+    public interface IJwtTokenService
+    {
+        string GenerateToken(string username, List<Claim> claims, int expireMinutes = 30);
+
+        Task<bool> ValidateToken(string token);
+    }
+    
+    public class JwtTokenService : IJwtTokenService
     {
         private readonly string _secretKey = "secretJWTsigningKey@123-secretJWTsigningKey@123";
         private readonly string _issuer = "https://localhost:5002";

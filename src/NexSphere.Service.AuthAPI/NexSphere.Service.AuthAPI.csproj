@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Fanex.Logging.Extensions.AspNetCore" Version="1.0.1" />
+    <PackageReference Include="Fanex.Logging.Extensions.Database" Version="1.0.8" />
     <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.1.2" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.1.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NexSphere.Service.Core\NexSphere.Data.csproj" />
+    <ProjectReference Include="..\NexSphere.Core\NexSphere.Core.csproj" />
   </ItemGroup>
 
 </Project>

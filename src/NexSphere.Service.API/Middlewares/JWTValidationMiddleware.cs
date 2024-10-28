@@ -1,64 +1,32 @@
-﻿using System.Threading.Tasks;
-using System;
-using System.Linq;
-using System.Collections.Generic;
+﻿using NexSphere.Core.Services;
 
 namespace NexSphere.Core.Middlewares
 {
     public class JWTValidationMiddleware
     {
         private readonly RequestDelegate next;
-        private readonly IAppSettings appSettings;
+        private readonly IJwtTokenService jwtTokenService;
 
-        public JWTValidationMiddleware(RequestDelegate next, IAppSettings appSettings)
+        public JWTValidationMiddleware(RequestDelegate next, IJwtTokenService jwtTokenService)
         {
             this.next = next;
-            this.appSettings = appSettings;
+            this.jwtTokenService = jwtTokenService;
         }
 
         public async Task Invoke(HttpContext context)
         {
-            if(this.appSettings.Environment == "PROD" || this.appSettings.Environment == "UAT")
+            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(' ').Last();
+
+            if (string.IsNullOrWhiteSpace(token) || !(await jwtTokenService.ValidateToken(token)))
             {
-                if (!context.Request.Path.Value.Contains("generatetoken/audience"))
-                {
-                    var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(' ').Last();
+                context.Response.Clear();
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
 
-                    if (string.IsNullOrWhiteSpace(token) || !ValidateToken(context, token))
-                    {
-                        context.Response.Clear();
-                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-
-                        return;
-                    }
-                }
-            }            
+                return;
+            }
 
             await next(context);
         }
 
-        private bool ValidateToken(HttpContext context, string token)
-        {
-            if (!string.IsNullOrWhiteSpace(token))
-            {
-                var jwtSetting = appSettings.Configuration.GetSection("AppConfig:JWT:SubscriberConfig").Get<IEnumerable<SubscrbierTokenModel>>();
-                var subscriber = context.Request.Path.Value.Split('/')[3];
-                foreach (var item in jwtSetting)
-                {
-                    if (item.Token.ToLower().Equals(token.ToLower()))
-                    {
-                        var subscribers = item.Subscribers.Split(',');
-
-                        if (subscribers.Length > 0 && subscribers.Any(x => x.Trim().ToLower().Equals(subscriber.ToLower())))
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            return false;
-
-        }
     }
 }

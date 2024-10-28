@@ -10,7 +10,10 @@
                     "Host": "localhost",
                     "Port": 5001
                 }
-            ]
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer"
+            }
         },
         {
             "UpstreamPathTemplate": "/shoes/{id}",
