@@ -55,7 +55,7 @@ builder.Services.AddAuthentication(opt => {
 #endregion
 
 LogManager
-          .SetDefaultLogCategory("NexSphere-Gateway-API")
+          .SetDefaultLogCategory("NexSphere.Gateway")
           .Use(new List<ILogEngine>
           {
                     new SentryLogging(new SentryEngineOptions

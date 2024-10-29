@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NexSphere.Service.Core.Models
+namespace NexSphere.Data.Models
 {
     public class User
     {

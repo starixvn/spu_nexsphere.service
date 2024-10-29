@@ -1,4 +1,4 @@
-﻿namespace NexSphere.Core.Middlewares
+﻿namespace NexSphere.DataAccessAPI.Middlewares
 {
     using Fanex.Logging;
     using Fanex.Logging.Extensions;

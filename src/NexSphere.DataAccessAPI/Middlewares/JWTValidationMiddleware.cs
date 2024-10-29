@@ -1,6 +1,6 @@
 ﻿using NexSphere.Core.Services;
 
-namespace NexSphere.Service.AuthAPI.Models
+namespace NexSphere.DataAccessAPI.Middlewares
 {
     public class JWTValidationMiddleware
     {

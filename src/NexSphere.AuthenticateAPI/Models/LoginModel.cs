@@ -1,4 +1,4 @@
-﻿namespace NexSphere.Service.AuthAPI.Models
+﻿namespace NexSphere.AuthenticateAPI.Models
 {
     public class LoginModel
     {

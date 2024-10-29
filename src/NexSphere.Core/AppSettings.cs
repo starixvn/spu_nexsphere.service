@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.ComponentModel;
+using System.Xml.Linq;
 
 namespace NexSphere.Core
 {
@@ -11,6 +12,8 @@ namespace NexSphere.Core
         string ApiIssuer { get; }
 
         string SentryDsn { get; }
+
+        string SPName { get; }
 
         IConfiguration Configuration { get; }
 
@@ -29,6 +32,8 @@ namespace NexSphere.Core
 
         private readonly string sentryDsn;
 
+        private readonly string spName;
+
         public AppSettings(IConfiguration configuration)
         {
             this.configuration = configuration;
@@ -39,6 +44,8 @@ namespace NexSphere.Core
 
             sentryDsn = GetValue<string>("Sentry:Dsn");
 
+            spName = GetValue<string>(nameof(SPName));
+
         }
 
         public string ApiSecretKey => apiSecretKey;
@@ -46,6 +53,8 @@ namespace NexSphere.Core
         public string ApiIssuer => apiIssuer;
 
         public string SentryDsn => sentryDsn;
+
+        public string SPName => spName;
 
         public T GetValue<T>(string key)
         {

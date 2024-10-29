@@ -1,10 +1,10 @@
-﻿using NexSphere.Service.Core.Models;
+﻿using NexSphere.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NexSphere.Service.Core.Repositories
+namespace NexSphere.Data.Repositories
 {
     public interface IShoeRepository
     {

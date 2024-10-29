@@ -1,8 +1,8 @@
-﻿using NexSphere.Service.Core.Repositories;
+﻿using NexSphere.Data.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace NexSphere.Service.API.Controllers
+namespace NexSphere.DataAccessAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
