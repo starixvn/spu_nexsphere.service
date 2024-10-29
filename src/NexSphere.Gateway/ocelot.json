@@ -1,9 +1,9 @@
 {
     "Routes": [
         {
-            "UpstreamPathTemplate": "/shoes",
+            "UpstreamPathTemplate": "/UseAgent/{size}",
             "UpstreamHttpMethod": [ "Get" ],
-            "DownstreamPathTemplate": "/api/shoes",
+            "DownstreamPathTemplate": "/api/UseAgent/{size}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -14,18 +14,6 @@
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer"
             }
-        },
-        {
-            "UpstreamPathTemplate": "/shoes/{id}",
-            "UpstreamHttpMethod": [ "Delete" ],
-            "DownstreamPathTemplate": "/api/shoes/{id}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5001
-                }
-            ]
         }
     ],
     "GlobalConfiguration": {

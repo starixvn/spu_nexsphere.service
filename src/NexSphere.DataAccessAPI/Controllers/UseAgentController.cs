@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using NexSphere.Data.Features.UserAgent;
-using NexSphere.Data.Repositories;
 
 namespace NexSphere.DataAccessAPI.Controllers
 {
