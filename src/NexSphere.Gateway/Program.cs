@@ -1,4 +1,5 @@
 using Fanex.Logging;
+using Fanex.Logging.Sentry;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -9,6 +10,8 @@ using Ocelot.Values;
 using System.Text;
 using NexSphere.Gateway.Middlewares;
 using Fanex.Logging.Sentry.RavenClient;
+using SharpRaven;
+using ILogger = Fanex.Logging.ILogger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +30,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 var appSettings = new AppSettings(builder.Configuration);
 builder.Services.AddSingleton<IAppSettings>(appSettings);
+builder.Services.AddSingleton<ILogger, Logger>();
 
 #region Swagger Configuration
 builder.Services.AddSwaggerGen();
@@ -77,4 +81,7 @@ app.UseAuthorization();
 app.UseMiddleware<ExceptionMiddleware>();
 
 await app.UseOcelot();
+
+LogService.Info(string.Format("This is NexSphere Gateway API {0} has been started at {1}", typeof(Program).FullName, DateTimeOffset.Now));
+
 app.Run();
