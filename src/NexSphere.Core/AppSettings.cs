@@ -50,9 +50,9 @@ namespace NexSphere.Core
 
             apiIssuer = GetValue<string>("ApiSettings:Issuer") ?? string.Empty;
 
-            authApiSecretKey = GetValue<string>("ApiSettings:Secret") ?? string.Empty;
+            authApiSecretKey = GetValue<string>("AuthApiSettings:Secret") ?? string.Empty;
 
-            authApiIssuer = GetValue<string>("ApiSettings:Issuer") ?? string.Empty;
+            authApiIssuer = GetValue<string>("AuthApiSettings:Issuer") ?? string.Empty;
 
             sentryDsn = GetValue<string>("Sentry:Dsn");
 

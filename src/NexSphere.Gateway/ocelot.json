@@ -1,6 +1,18 @@
 {
     "Routes": [
         {
+            "UpstreamPathTemplate": "/authenticate",
+            "UpstreamHttpMethod": [ "Post" ],
+            "DownstreamPathTemplate": "/api/authenticate",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        },
+        {
             "UpstreamPathTemplate": "/UseAgent/{size}",
             "UpstreamHttpMethod": [ "Get" ],
             "DownstreamPathTemplate": "/api/UseAgent/{size}",

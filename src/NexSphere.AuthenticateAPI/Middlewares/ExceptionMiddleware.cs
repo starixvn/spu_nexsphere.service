@@ -1,4 +1,4 @@
-﻿namespace NexSphere.AuthenticateAPI.Models
+﻿namespace NexSphere.AuthenticateAPI.Middlewares
 {
     using Fanex.Logging;
     using Fanex.Logging.Extensions;

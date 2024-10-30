@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using NexSphere.AuthenticateAPI.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using NexSphere.Core;
+using NexSphere.Core.Models;
 using NexSphere.Core.Services;
 using System.Security.Claims;
 
@@ -17,7 +16,7 @@ namespace NexSphere.AuthenticateAPI.Controllers
             this.appSettings = appSettings;
         }
 
-        [HttpPost]
+        [HttpPost("authenticate")]
         public IActionResult Login([FromForm] string username, [FromForm] string password)
         {
             List<Claim> claims = null;
@@ -37,7 +36,13 @@ namespace NexSphere.AuthenticateAPI.Controllers
                 };
             }
 
-            return claims != null ? Ok(new JwtTokenService(appSettings.ApiSecretKey, appSettings.ApiIssuer).GenerateToken(username, claims, 10)) : Unauthorized() ;
+            var tokenSetting = new TokenSetting()
+            {
+                SecretKey = appSettings.ApiSecretKey,
+                Issuer = appSettings.ApiIssuer
+            };
+
+            return claims != null ? Ok(new JwtTokenService().GenerateToken(tokenSetting, username, claims, 10)) : Unauthorized() ;
 
         }
     }

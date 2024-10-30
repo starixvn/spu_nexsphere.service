@@ -5,8 +5,9 @@
     using Fanex.Logging;
     using Fanex.Logging.Sentry.RavenClient;
     using Microsoft.Extensions.Configuration;
-    using NexSphere.AuthenticateAPI.Models;
+    using NexSphere.AuthenticateAPI.Middlewares;
     using NexSphere.Core;
+    using NexSphere.Core.Services;
     using SharpRaven;
     
     public class Startup
@@ -25,6 +26,7 @@
 
             services.AddSingleton<IAppSettings>(appSettings);
             services.AddSingleton<ILogger, Logger>();
+            services.AddSingleton<IJwtTokenService, JwtTokenService>();
 
             services.AddControllers();
             services.AddEndpointsApiExplorer();
@@ -73,6 +75,7 @@
 
             app.UseAuthorization();
 
+            app.UseMiddleware<JWTValidationMiddleware>();
             app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseCors("AllowOnlyGateway");

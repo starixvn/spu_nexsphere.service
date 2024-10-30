@@ -1,5 +1,6 @@
 ﻿using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+using NexSphere.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -10,33 +11,23 @@ namespace NexSphere.Core.Services
 {
     public interface IJwtTokenService
     {
-        string GenerateToken(string username, List<Claim> claims, int expireMinutes = 30);
+        string GenerateToken(TokenSetting tokenSetting, string username, List<Claim> claims, int expireMinutes = 30);
 
-        Task<bool> ValidateToken(string token);
+        Task<bool> ValidateToken(TokenSetting tokenSetting, string token);
     }
     
     public class JwtTokenService : IJwtTokenService
     {
-        private readonly string secretKey;
-        private readonly string issuer;
-        
-
-        public JwtTokenService(string secretKey, string issuer)
+        public string GenerateToken(TokenSetting tokenSetting, string username, List<Claim> claims, int expireMinutes = 30)
         {
-            this.secretKey = secretKey;
-            this.issuer = issuer;
-        }
-
-        public string GenerateToken(string username, List<Claim> claims, int expireMinutes = 30)
-        {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenSetting.SecretKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(expireMinutes),
-                Issuer = issuer,
+                Issuer = tokenSetting.Issuer,
                 SigningCredentials = credentials
             };
 
@@ -44,16 +35,16 @@ namespace NexSphere.Core.Services
             return tokenHandler.CreateToken(tokenDescriptor);
         }
 
-        public async Task<bool> ValidateToken(string token)
+        public async Task<bool> ValidateToken(TokenSetting tokenSetting, string token)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenSetting.SecretKey));
 
             var validationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = key,
                 ValidateIssuer = true,
-                ValidIssuer = issuer,
+                ValidIssuer = tokenSetting.Issuer,
                 ValidateAudience = false,
                 ClockSkew = TimeSpan.Zero
             };

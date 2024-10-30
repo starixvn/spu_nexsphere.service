@@ -1,4 +1,5 @@
-﻿using NexSphere.Core.Services;
+﻿using NexSphere.Core.Models;
+using NexSphere.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,18 +15,21 @@ namespace NexSphere.Core.Test.Services
         public async Task ValidateToken_WhenValidToken_ShouldReturnTrue()
         {
             //  Arrange
-            string secretKey = "secretJWTsigningKey@123-secretJWTsigningKey@123";
-            string issuer = "https://localhost:5002";
-            var service = new JwtTokenService(secretKey, issuer);
+            var tokenSetting = new TokenSetting()
+            {
+                SecretKey = "secretJWTsigningKey@123-secretJWTsigningKey@123",
+                Issuer = "https://localhost:5002"
+            };
+            var service = new JwtTokenService();
             string username = "username";
             int expireMinutes = 30;
             var claims = new List<Claim>()
             {
                 new Claim("username", username)
             };
-            string token = service.GenerateToken(username, claims, expireMinutes);
+            string token = service.GenerateToken(tokenSetting, username, claims, expireMinutes);
 
-            bool isValid = await service.ValidateToken(token);
+            bool isValid = await service.ValidateToken(tokenSetting, token);
 
             Assert.True(isValid);
         }
@@ -34,12 +38,15 @@ namespace NexSphere.Core.Test.Services
         public async Task ValidateToken_WhenInValidToken_ShouldReturnFalse()
         {
             //  Arrange
-            string secretKey = "secretJWTsigningKey@123-secretJWTsigningKey@123";
-            string issuer = "https://localhost:5002";
-            var service = new JwtTokenService(secretKey, issuer);
+            var tokenSetting = new TokenSetting()
+            {
+                SecretKey = "secretJWTsigningKey@123-secretJWTsigningKey@123",
+                Issuer = "https://localhost:5002"
+            };
+            var service = new JwtTokenService();
             string token = "abc";
 
-            bool isValid = await service.ValidateToken(token);
+            bool isValid = await service.ValidateToken(tokenSetting, token);
 
             Assert.False(isValid);
         }

@@ -28,9 +28,7 @@
             services.AddSingleton<IAppSettings>(appSettings);
             services.AddSingleton<ILogger, Logger>();
 
-            var jwtTokenService = new JwtTokenService(appSettings.ApiSecretKey, appSettings.ApiIssuer);
-
-            services.AddSingleton<IJwtTokenService>(jwtTokenService);
+            services.AddSingleton<IJwtTokenService, JwtTokenService>();
 
 
             services.AddControllers();
