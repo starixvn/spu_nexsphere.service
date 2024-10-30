@@ -25,7 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexSphere.Core.Tests", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexSphere.Data.Tests", "src\NexSphere.Data.Tests\NexSphere.Data.Tests.csproj", "{376A456C-1ADC-4CD1-AFDB-2097C2DE73ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexSphere.DataAccessAPI.Tests", "src\NexSphere.DataAccessAPI.Tests\NexSphere.DataAccessAPI.Tests.csproj", "{C54C2AA4-B3AD-4796-B5CE-1C6AC1D6C06E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexSphere.DataAccessAPI.Tests", "src\NexSphere.DataAccessAPI.Tests\NexSphere.DataAccessAPI.Tests.csproj", "{C54C2AA4-B3AD-4796-B5CE-1C6AC1D6C06E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexSphere.AuthenticateAPI.Tests", "src\NexSphere.AuthenticateAPI.Tests\NexSphere.AuthenticateAPI.Tests.csproj", "{19CD963E-ADD1-422E-82A4-CAA0B186835A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexSphere.Model", "src\NexSphere.Model\NexSphere.Model.csproj", "{BC45D85A-0E15-400E-B4CB-F87262055CCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +69,14 @@ Global
 		{C54C2AA4-B3AD-4796-B5CE-1C6AC1D6C06E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C54C2AA4-B3AD-4796-B5CE-1C6AC1D6C06E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C54C2AA4-B3AD-4796-B5CE-1C6AC1D6C06E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19CD963E-ADD1-422E-82A4-CAA0B186835A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19CD963E-ADD1-422E-82A4-CAA0B186835A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19CD963E-ADD1-422E-82A4-CAA0B186835A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19CD963E-ADD1-422E-82A4-CAA0B186835A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC45D85A-0E15-400E-B4CB-F87262055CCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC45D85A-0E15-400E-B4CB-F87262055CCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC45D85A-0E15-400E-B4CB-F87262055CCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC45D85A-0E15-400E-B4CB-F87262055CCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +90,8 @@ Global
 		{916F5A3F-9C65-4EC3-9630-DDEE2593270C} = {E40269CF-580C-461F-A647-7C74FBDE444E}
 		{376A456C-1ADC-4CD1-AFDB-2097C2DE73ED} = {E40269CF-580C-461F-A647-7C74FBDE444E}
 		{C54C2AA4-B3AD-4796-B5CE-1C6AC1D6C06E} = {E40269CF-580C-461F-A647-7C74FBDE444E}
+		{19CD963E-ADD1-422E-82A4-CAA0B186835A} = {E40269CF-580C-461F-A647-7C74FBDE444E}
+		{BC45D85A-0E15-400E-B4CB-F87262055CCB} = {5267BFC6-6D4F-4599-861A-DE4FD25AA8D7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {008589ED-A501-4988-9C95-8292370B093A}

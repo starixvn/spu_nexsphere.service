@@ -9,8 +9,7 @@ namespace NexSphere.DataAccessAPI.Services
         public static void RegisterService(this IServiceCollection services)
         {
             services.AddSingleton<IDynamicRepository, DynamicRepository>();
-            services.AddSingleton<IJwtTokenService, JwtTokenService>();
-
+            
             RegisterUserAgentService(services);    
         }
 

@@ -6,6 +6,7 @@
     using Fanex.Logging.Sentry.RavenClient;
     using Microsoft.Extensions.Configuration;
     using NexSphere.Core;
+    using NexSphere.Core.Services;
     using NexSphere.DataAccessAPI.Middlewares;
     using NexSphere.DataAccessAPI.Services;
     using SharpRaven;
@@ -26,6 +27,11 @@
 
             services.AddSingleton<IAppSettings>(appSettings);
             services.AddSingleton<ILogger, Logger>();
+
+            var jwtTokenService = new JwtTokenService(appSettings.ApiSecretKey, appSettings.ApiIssuer);
+
+            services.AddSingleton<IJwtTokenService>(jwtTokenService);
+
 
             services.AddControllers();
             services.AddEndpointsApiExplorer();
@@ -53,7 +59,7 @@
             FanexDataConfig(appSettings);
             RegisterLogging(appSettings);
 
-            LogService.Info(string.Format("DataAccess API started at {0}", DateTimeOffset.Now));
+            LogService.Info(string.Format("NexSphere DataAccess API started at {0}", DateTimeOffset.Now));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

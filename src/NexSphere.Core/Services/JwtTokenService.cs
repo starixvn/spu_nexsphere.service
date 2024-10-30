@@ -17,25 +17,26 @@ namespace NexSphere.Core.Services
     
     public class JwtTokenService : IJwtTokenService
     {
-        private readonly string _secretKey = "secretJWTsigningKey@123-secretJWTsigningKey@123";
-        private readonly string _issuer = "https://localhost:5002";
+        private readonly string secretKey;
+        private readonly string issuer;
         
 
-        public JwtTokenService()
+        public JwtTokenService(string secretKey, string issuer)
         {
-            
+            this.secretKey = secretKey;
+            this.issuer = issuer;
         }
 
         public string GenerateToken(string username, List<Claim> claims, int expireMinutes = 30)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(expireMinutes),
-                Issuer = _issuer,
+                Issuer = issuer,
                 SigningCredentials = credentials
             };
 
@@ -45,14 +46,14 @@ namespace NexSphere.Core.Services
 
         public async Task<bool> ValidateToken(string token)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
             var validationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = key,
                 ValidateIssuer = true,
-                ValidIssuer = _issuer,
+                ValidIssuer = issuer,
                 ValidateAudience = false,
                 ClockSkew = TimeSpan.Zero
             };

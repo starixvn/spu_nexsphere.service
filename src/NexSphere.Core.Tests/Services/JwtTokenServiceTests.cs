@@ -14,7 +14,9 @@ namespace NexSphere.Core.Test.Services
         public async Task ValidateToken_WhenValidToken_ShouldReturnTrue()
         {
             //  Arrange
-            var service = new JwtTokenService();
+            string secretKey = "secretJWTsigningKey@123-secretJWTsigningKey@123";
+            string issuer = "https://localhost:5002";
+            var service = new JwtTokenService(secretKey, issuer);
             string username = "username";
             int expireMinutes = 30;
             var claims = new List<Claim>()
@@ -32,7 +34,9 @@ namespace NexSphere.Core.Test.Services
         public async Task ValidateToken_WhenInValidToken_ShouldReturnFalse()
         {
             //  Arrange
-            var service = new JwtTokenService();
+            string secretKey = "secretJWTsigningKey@123-secretJWTsigningKey@123";
+            string issuer = "https://localhost:5002";
+            var service = new JwtTokenService(secretKey, issuer);
             string token = "abc";
 
             bool isValid = await service.ValidateToken(token);

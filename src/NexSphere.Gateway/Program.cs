@@ -82,6 +82,6 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 await app.UseOcelot();
 
-LogService.Info(string.Format("This is NexSphere Gateway API {0} has been started at {1}", typeof(Program).FullName, DateTimeOffset.Now));
+LogService.Info(string.Format("NexSphere Gateway has been started at {0}", DateTimeOffset.Now));
 
 app.Run();

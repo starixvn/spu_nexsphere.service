@@ -11,7 +11,6 @@ namespace NexSphere.DataAccessAPI
         {
             var host = CreateHostBuilder(args).Build();
             
-
             host.Run();
         }
 

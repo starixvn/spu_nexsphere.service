@@ -11,6 +11,10 @@ namespace NexSphere.Core
 
         string ApiIssuer { get; }
 
+        string AuthApiSecretKey { get; }
+
+        string AuthApiIssuer { get; }
+
         string SentryDsn { get; }
 
         string SPName { get; }
@@ -30,6 +34,10 @@ namespace NexSphere.Core
 
         private readonly string apiIssuer;
 
+        private readonly string authApiSecretKey;
+
+        private readonly string authApiIssuer;
+
         private readonly string sentryDsn;
 
         private readonly string spName;
@@ -42,6 +50,10 @@ namespace NexSphere.Core
 
             apiIssuer = GetValue<string>("ApiSettings:Issuer") ?? string.Empty;
 
+            authApiSecretKey = GetValue<string>("ApiSettings:Secret") ?? string.Empty;
+
+            authApiIssuer = GetValue<string>("ApiSettings:Issuer") ?? string.Empty;
+
             sentryDsn = GetValue<string>("Sentry:Dsn");
 
             spName = GetValue<string>(nameof(SPName));
@@ -51,6 +63,10 @@ namespace NexSphere.Core
         public string ApiSecretKey => apiSecretKey;
         
         public string ApiIssuer => apiIssuer;
+
+        public string AuthApiSecretKey => authApiSecretKey;
+
+        public string AuthApiIssuer => authApiIssuer;
 
         public string SentryDsn => sentryDsn;
 

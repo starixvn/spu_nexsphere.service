@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Functions>
+	<Function Name="DataAccessAPI">
+		<Setting Key="DCS_DC_Transform_UserAgent_GetNullBrowserOSList" SpName="DCS_DC_Transform_UserAgent_GetNullBrowserOSList" DbName="MySQL.DCS_DataCenter.ctsService" Timeout="600"/>
+	</Function>
+</Functions>
