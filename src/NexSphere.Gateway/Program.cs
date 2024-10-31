@@ -1,12 +1,9 @@
 using Fanex.Logging;
-using Fanex.Logging.Sentry;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using NexSphere.Core;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using Ocelot.Values;
 using System.Text;
 using NexSphere.Gateway.Middlewares;
 using Fanex.Logging.Sentry.RavenClient;
@@ -17,15 +14,6 @@ using NexSphere.Core.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-
-if (builder.Environment.EnvironmentName.ToString().ToLower().Equals("production"))
-{
-    builder.Configuration.AddJsonFile("ocelot.Production.json", optional: false, reloadOnChange: true);
-}
-else
-{
-    builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
-}
 builder.Services.AddOcelot(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 
@@ -35,15 +23,14 @@ builder.Services.AddSingleton<IAppSettings>(appSettings);
 builder.Services.AddSingleton<ILogger, Logger>();
 builder.Services.AddSingleton<IJwtTokenService, JwtTokenService>();
 
-#region Swagger Configuration
 builder.Services.AddSwaggerGen();
-#endregion
 
 #region Authentication
-builder.Services.AddAuthentication(opt => {
-    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
+builder.Services.AddAuthentication(opt =>
+        {
+            opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
         .AddJwtBearer(options =>
         {
             options.TokenValidationParameters = new TokenValidationParameters
@@ -52,7 +39,7 @@ builder.Services.AddAuthentication(opt => {
                 ValidIssuer = appSettings.ApiIssuer,
                 ValidateAudience = false,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.ApiSecretKey))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.DataAccessApiSecretKey))
             };
         });
 #endregion

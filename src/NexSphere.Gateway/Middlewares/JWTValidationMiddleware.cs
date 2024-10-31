@@ -1,8 +1,6 @@
 ﻿using NexSphere.Core;
 using NexSphere.Core.Models;
 using NexSphere.Core.Services;
-using Ocelot.Values;
-using System.Net.Http.Headers;
 using System.Security.Claims;
 
 namespace NexSphere.Gateway.Middlewares
@@ -36,15 +34,15 @@ namespace NexSphere.Gateway.Middlewares
         {
             var tokenSetting = new TokenSetting()
             {
-                SecretKey = appSettings.AuthApiSecretKey,
-                Issuer = appSettings.AuthApiIssuer
+                SecretKey = appSettings.GatewaySecretKey,
+                Issuer = appSettings.ApiIssuer
             };
 
             string username = "gateway";
             int expireMinutes = 5;
             var claims = new List<Claim>()
             {
-                    new Claim("username", username)
+                new Claim("username", username)
             };
             return jwtTokenService.GenerateToken(tokenSetting, username, claims, expireMinutes);
         }

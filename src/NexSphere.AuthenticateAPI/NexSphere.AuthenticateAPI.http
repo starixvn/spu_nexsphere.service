@@ -1,0 +1,11 @@
+@hostname=localhost
+@port=5002
+
+POST http://{{hostname}}:{{port}}/api/authenticate
+Content-Type: application/json
+
+{
+    "username": "user",
+    "password": "123546"
+}
+###

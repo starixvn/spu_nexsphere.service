@@ -23,7 +23,7 @@ namespace NexSphere.DataAccessAPI.Middlewares
 
             var tokenSetting = new TokenSetting()
             {
-                SecretKey = appSettings.ApiSecretKey,
+                SecretKey = appSettings.DataAccessApiSecretKey,
                 Issuer = appSettings.ApiIssuer
             };
 

@@ -27,9 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexSphere.Data.Tests", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexSphere.DataAccessAPI.Tests", "src\NexSphere.DataAccessAPI.Tests\NexSphere.DataAccessAPI.Tests.csproj", "{C54C2AA4-B3AD-4796-B5CE-1C6AC1D6C06E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexSphere.AuthenticateAPI.Tests", "src\NexSphere.AuthenticateAPI.Tests\NexSphere.AuthenticateAPI.Tests.csproj", "{19CD963E-ADD1-422E-82A4-CAA0B186835A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexSphere.AuthenticateAPI.Tests", "src\NexSphere.AuthenticateAPI.Tests\NexSphere.AuthenticateAPI.Tests.csproj", "{19CD963E-ADD1-422E-82A4-CAA0B186835A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexSphere.Model", "src\NexSphere.Model\NexSphere.Model.csproj", "{BC45D85A-0E15-400E-B4CB-F87262055CCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexSphere.Model", "src\NexSphere.Model\NexSphere.Model.csproj", "{BC45D85A-0E15-400E-B4CB-F87262055CCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,19 +1,16 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.ComponentModel;
-using System.Xml.Linq;
 
 namespace NexSphere.Core
 {
     public interface IAppSettings
     {
-        string ApiSecretKey { get; }
+        string DataAccessApiSecretKey { get; }
 
         string ApiIssuer { get; }
 
-        string AuthApiSecretKey { get; }
-
-        string AuthApiIssuer { get; }
+        string GatewaySecretKey { get; }
 
         string SentryDsn { get; }
 
@@ -30,13 +27,11 @@ namespace NexSphere.Core
     {
         private readonly IConfiguration configuration;
 
-        private readonly string apiSecretKey;
+        private readonly string dataAccessApiSecretKey;
 
         private readonly string apiIssuer;
 
-        private readonly string authApiSecretKey;
-
-        private readonly string authApiIssuer;
+        private readonly string gatewaySecretKey;
 
         private readonly string sentryDsn;
 
@@ -46,13 +41,11 @@ namespace NexSphere.Core
         {
             this.configuration = configuration;
 
-            apiSecretKey = GetValue<string>("ApiSettings:Secret") ?? string.Empty;
+            dataAccessApiSecretKey = GetValue<string>("ApiSettings:DataAccess:Secret") ?? string.Empty;
 
             apiIssuer = GetValue<string>("ApiSettings:Issuer") ?? string.Empty;
 
-            authApiSecretKey = GetValue<string>("AuthApiSettings:Secret") ?? string.Empty;
-
-            authApiIssuer = GetValue<string>("AuthApiSettings:Issuer") ?? string.Empty;
+            gatewaySecretKey = GetValue<string>("ApiSettings:Gateway:Secret") ?? string.Empty;
 
             sentryDsn = GetValue<string>("Sentry:Dsn");
 
@@ -60,13 +53,11 @@ namespace NexSphere.Core
 
         }
 
-        public string ApiSecretKey => apiSecretKey;
+        public string DataAccessApiSecretKey => dataAccessApiSecretKey;
         
         public string ApiIssuer => apiIssuer;
 
-        public string AuthApiSecretKey => authApiSecretKey;
-
-        public string AuthApiIssuer => authApiIssuer;
+        public string GatewaySecretKey => gatewaySecretKey;
 
         public string SentryDsn => sentryDsn;
 

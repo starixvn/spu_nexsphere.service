@@ -1,0 +1,5 @@
+@hostname=localhost
+@port=5001
+
+GET http://{{hostname}}:{{port}}/api/UseAgent/100
+###

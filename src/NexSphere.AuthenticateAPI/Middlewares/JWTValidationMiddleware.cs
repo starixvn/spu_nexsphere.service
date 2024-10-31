@@ -23,8 +23,8 @@ namespace NexSphere.AuthenticateAPI.Middlewares
 
             var tokenSetting = new TokenSetting()
             {
-                SecretKey = appSettings.AuthApiSecretKey,
-                Issuer = appSettings.AuthApiIssuer
+                SecretKey = appSettings.GatewaySecretKey,
+                Issuer = appSettings.ApiIssuer
             };
 
             if (string.IsNullOrWhiteSpace(token) || !(await jwtTokenService.ValidateToken(tokenSetting, token)))

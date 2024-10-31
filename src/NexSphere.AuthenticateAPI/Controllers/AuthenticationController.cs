@@ -19,31 +19,39 @@ namespace NexSphere.AuthenticateAPI.Controllers
         [HttpPost("authenticate")]
         public IActionResult Login([FromForm] string username, [FromForm] string password)
         {
-            List<Claim> claims = null;
-            if (username == "admin" || password == "123456") {
-                claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.NameIdentifier, username),
-                    new Claim("role", "admin"),
-                };
-            }
-            if (username == "user" || password == "123456")
-            {
-                claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.NameIdentifier, username),
-                    new Claim("role", "user"),
-                };
-            }
+            var claims = GetClaims(username, password);
 
             var tokenSetting = new TokenSetting()
             {
-                SecretKey = appSettings.ApiSecretKey,
+                SecretKey = appSettings.DataAccessApiSecretKey,
                 Issuer = appSettings.ApiIssuer
             };
 
             return claims != null ? Ok(new JwtTokenService().GenerateToken(tokenSetting, username, claims, 10)) : Unauthorized() ;
 
+        }
+
+        private List<Claim>? GetClaims(string username, string password) 
+        {
+            if (username == "admin" || password == "123456")
+            {
+                return new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, username),
+                    new Claim(ClaimTypes.Role, "admin"),
+                };
+            }
+            
+            if (username == "user" || password == "123456")
+            {
+                return new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, username),
+                    new Claim(ClaimTypes.Role, "user"),
+                };
+            }
+
+            return null;
         }
     }
 }

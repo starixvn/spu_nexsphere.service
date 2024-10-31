@@ -1,5 +1,4 @@
 ﻿using Fanex.Data.Repository;
-using NexSphere.Core.Services;
 using NexSphere.Data.Features.UserAgent;
 
 namespace NexSphere.DataAccessAPI.Services
