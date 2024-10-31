@@ -36,8 +36,8 @@ namespace NexSphere.Gateway.Middlewares
         {
             var tokenSetting = new TokenSetting()
             {
-                SecretKey = appSettings.ApiSecretKey,
-                Issuer = appSettings.ApiIssuer
+                SecretKey = appSettings.AuthApiSecretKey,
+                Issuer = appSettings.AuthApiIssuer
             };
 
             string username = "gateway";

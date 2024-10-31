@@ -12,6 +12,7 @@ using NexSphere.Gateway.Middlewares;
 using Fanex.Logging.Sentry.RavenClient;
 using SharpRaven;
 using ILogger = Fanex.Logging.ILogger;
+using NexSphere.Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,8 +30,10 @@ builder.Services.AddOcelot(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 
 var appSettings = new AppSettings(builder.Configuration);
+
 builder.Services.AddSingleton<IAppSettings>(appSettings);
 builder.Services.AddSingleton<ILogger, Logger>();
+builder.Services.AddSingleton<IJwtTokenService, JwtTokenService>();
 
 #region Swagger Configuration
 builder.Services.AddSwaggerGen();
@@ -78,6 +81,7 @@ app.UseSwaggerUI(c =>
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseMiddleware<JWTValidationMiddleware>();
 app.UseMiddleware<ExceptionMiddleware>();
 
 await app.UseOcelot();
