@@ -2,6 +2,7 @@
 using NexSphere.Core;
 using NexSphere.Core.Models;
 using NexSphere.Core.Services;
+using NexSphere.Model;
 using System.Security.Claims;
 
 namespace NexSphere.AuthenticateAPI.Controllers
@@ -17,9 +18,9 @@ namespace NexSphere.AuthenticateAPI.Controllers
         }
 
         [HttpPost("authenticate")]
-        public IActionResult Login([FromForm] string username, [FromForm] string password)
+        public IActionResult Login([FromBody] LoginModel loginModel)
         {
-            var claims = GetClaims(username, password);
+            var claims = GetClaims(loginModel.Username, loginModel.Password);
 
             var tokenSetting = new TokenSetting()
             {
@@ -27,11 +28,11 @@ namespace NexSphere.AuthenticateAPI.Controllers
                 Issuer = appSettings.ApiIssuer
             };
 
-            return claims != null ? Ok(new JwtTokenService().GenerateToken(tokenSetting, username, claims, 10)) : Unauthorized() ;
+            return claims != null ? Ok(new JwtTokenService().GenerateToken(tokenSetting, loginModel.Username, claims, 10)) : Unauthorized();
 
         }
 
-        private List<Claim>? GetClaims(string username, string password) 
+        private List<Claim>? GetClaims(string username, string password)
         {
             if (username == "admin" || password == "123456")
             {
@@ -41,7 +42,7 @@ namespace NexSphere.AuthenticateAPI.Controllers
                     new Claim(ClaimTypes.Role, "admin"),
                 };
             }
-            
+
             if (username == "user" || password == "123456")
             {
                 return new List<Claim>

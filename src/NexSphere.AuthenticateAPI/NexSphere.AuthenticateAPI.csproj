@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NexSphere.Core\NexSphere.Core.csproj" />
     <ProjectReference Include="..\NexSphere.Data\NexSphere.Data.csproj" />
+    <ProjectReference Include="..\NexSphere.Model\NexSphere.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>
