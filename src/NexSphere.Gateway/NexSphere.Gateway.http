@@ -5,13 +5,19 @@ POST http://{{hostname}}:{{port}}/authenticate
 Content-Type:application/json
 
 {
-    "username": "user",
+    "username": "admin",
     "password": "123546"
 }
 
-###
+### request Unauthorization
 
 GET http://{{hostname}}:{{port}}/UseAgent/500
-Authorization:Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo1MDAyIiwiZXhwIjoxNzMwNjg5MTc3LCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6InVzZXIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwiaWF0IjoxNzMwNjg4NTc3LCJuYmYiOjE3MzA2ODg1Nzd9.7QXxLklraYVzalkjY4G_ZcQo4Cclj045uABziuprGFw
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJ1c2VyIiwiY3VzdG9tcm9sZSI6InVzZXIiLCJuYmYiOjE3MzA3MDQ5ODksImV4cCI6MTczMDcwNTU4OSwiaWF0IjoxNzMwNzA0OTg5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo1MDAyIn0.c7xleu6CApMue1w8r3FMHhrks1W1_HLWDgEX0NH8iSg
+
+
+### request Authorization
+
+GET http://{{hostname}}:{{port}}/UseAgent/500
+Authorization:Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo1MDAyIiwiZXhwIjoxNzMwNzA5MTA2LCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImFkbWluIiwiY3VzdG9tcm9sZSI6ImFkbWluIiwiaWF0IjoxNzMwNzA4NTA2LCJuYmYiOjE3MzA3MDg1MDZ9._4fZZwtG5OrTE-Q9as_5oXF3rFgA91jxCc7P_Kqk8yA
 
 

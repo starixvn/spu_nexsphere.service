@@ -39,7 +39,7 @@ namespace NexSphere.AuthenticateAPI.Controllers
                 return new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier, username),
-                    new Claim(ClaimTypes.Role, "admin"),
+                    new Claim("customrole", "admin"),
                 };
             }
 
@@ -48,7 +48,7 @@ namespace NexSphere.AuthenticateAPI.Controllers
                 return new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier, username),
-                    new Claim(ClaimTypes.Role, "user"),
+                    new Claim("customrole", "user"),
                 };
             }
 
