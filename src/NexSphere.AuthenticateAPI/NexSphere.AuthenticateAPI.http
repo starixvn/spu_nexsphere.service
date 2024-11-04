@@ -3,6 +3,7 @@
 
 POST http://{{hostname}}:{{port}}/api/authenticate
 Content-Type: application/json
+Authorization:Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo1MDAyIiwiZXhwIjoxNzMwNjg5MTc3LCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6InVzZXIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwiaWF0IjoxNzMwNjg4NTc3LCJuYmYiOjE3MzA2ODg1Nzd9.7QXxLklraYVzalkjY4G_ZcQo4Cclj045uABziuprGFw
 
 {
     "username": "user",
