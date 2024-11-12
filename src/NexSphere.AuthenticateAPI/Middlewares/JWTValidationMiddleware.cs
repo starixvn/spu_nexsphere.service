@@ -4,28 +4,17 @@ using NexSphere.Core.Services;
 
 namespace NexSphere.AuthenticateAPI.Middlewares
 {
-    public class JWTValidationMiddleware
+    public class JWTValidationMiddleware(RequestDelegate next, IJwtTokenService jwtTokenService, IAppSettings appSettings)
     {
-        private readonly RequestDelegate next;
-        private readonly IJwtTokenService jwtTokenService;
-        private readonly IAppSettings appSettings;
-
-        public JWTValidationMiddleware(RequestDelegate next, IJwtTokenService jwtTokenService, IAppSettings appSettings)
-        {
-            this.next = next;
-            this.jwtTokenService = jwtTokenService;
-            this.appSettings = appSettings; 
-        }
+        private readonly RequestDelegate next = next;
+        private readonly IJwtTokenService jwtTokenService = jwtTokenService;
+        private readonly IAppSettings appSettings = appSettings;
 
         public async Task Invoke(HttpContext context)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(' ').Last();
 
-            var tokenSetting = new TokenSetting()
-            {
-                SecretKey = appSettings.GatewaySecretKey,
-                Issuer = appSettings.ApiIssuer
-            };
+            var tokenSetting = new TokenSetting(SecretKey: appSettings.GatewaySecretKey, Issuer: appSettings.ApiIssuer);
 
             if (string.IsNullOrWhiteSpace(token) || !(await jwtTokenService.ValidateToken(tokenSetting, token)))
             {

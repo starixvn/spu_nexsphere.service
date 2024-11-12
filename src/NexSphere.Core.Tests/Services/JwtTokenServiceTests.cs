@@ -1,11 +1,6 @@
 ﻿using NexSphere.Core.Models;
 using NexSphere.Core.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NexSphere.Core.Test.Services
 {
@@ -15,11 +10,7 @@ namespace NexSphere.Core.Test.Services
         public async Task ValidateToken_WhenValidToken_ShouldReturnTrue()
         {
             //  Arrange
-            var tokenSetting = new TokenSetting()
-            {
-                SecretKey = "secretJWTsigningKey@123-secretJWTsigningKey@123",
-                Issuer = "https://localhost:5002"
-            };
+            var tokenSetting = new TokenSetting(SecretKey: "secretJWTsigningKey@123-secretJWTsigningKey@123", Issuer: "https://localhost:5002");
             var service = new JwtTokenService();
             string username = "username";
             int expireMinutes = 30;
@@ -38,11 +29,7 @@ namespace NexSphere.Core.Test.Services
         public async Task ValidateToken_WhenInValidToken_ShouldReturnFalse()
         {
             //  Arrange
-            var tokenSetting = new TokenSetting()
-            {
-                SecretKey = "secretJWTsigningKey@123-secretJWTsigningKey@123",
-                Issuer = "https://localhost:5002"
-            };
+            var tokenSetting = new TokenSetting(SecretKey: "secretJWTsigningKey@123-secretJWTsigningKey@123", Issuer: "https://localhost:5002");
             var service = new JwtTokenService();
             string token = "abc";
 

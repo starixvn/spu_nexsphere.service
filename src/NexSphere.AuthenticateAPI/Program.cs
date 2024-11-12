@@ -22,7 +22,7 @@ builder.Services.AddSingleton<IAppSettings>(appSettings);
 builder.Services.AddSingleton<ILogger, Logger>();
 builder.Services.AddSingleton<IJwtTokenService, JwtTokenService>();
 builder.Services.AddSingleton<IAuthService, AuthService>();
-builder.Services.AddSingleton<IIdentityService, IdentityService>();
+builder.Services.AddSingleton<IUserService, UserService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

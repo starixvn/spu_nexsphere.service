@@ -1,94 +1,81 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NexSphere.AuthenticateAPI.Services;
-using NexSphere.Core;
-using NexSphere.Core.Models;
 using NexSphere.Core.Services;
 using NexSphere.Model;
-using System.Security.Claims;
 
 namespace NexSphere.AuthenticateAPI.Controllers
 {
     [Route("api")]
     [ApiController]
-    public class AuthenticationController(IAppSettings appSettings, IIdentityService identityService, IAuthService authService) : ControllerBase
+    public class AuthenticationController(IUserService userService
+                                        , IAuthService authService) : ControllerBase
     {
-        [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register(string username, string password)
         {
             string passwordHash = Utilities.HashPassword(password);
-            identityService.RegisterUser(username, passwordHash);
+            userService.RegisterUser(username, passwordHash);
 
             return Ok("User registered successfully.");
         }
 
-        [AllowAnonymous]
         [HttpPost("login")]
-        public IActionResult Login(string username)
+        public IActionResult Login(string username, string password)
         {
-            int? userId = identityService.LoginUser(username);
-            if (userId == null)
+            uint? userID = userService.LoginUser(username, password);
+            if (userID == null)
                 return Unauthorized("Invalid credentials.");
 
-            var roles = authService.GetUserRoles((int)userId);
-            var token = authService.GenerateJwtToken(username, roles);
+            var roles = userService.GetUserRoles((uint)userID);
+            var token = authService.GenerateJwtToken((uint)userID, roles);
 
-            return Ok(new { UserId = userId, AccessToken = token });
-        }
-
-        [Authorize]
-        [HttpGet("role/{userId}")]
-        public IActionResult GetRole(int userId)
-        {
-            var role = identityService.GetUserRole(userId);
-
-            return Ok(role);
+            return Ok(new UserTokenResponse(UserID: (uint)userID, AccessToken: token));
         }
 
         [Authorize(Roles = "Admin")]
         [HttpGet("admin")]
-        public IActionResult GetAdminPermissions(int userId)
+        public IActionResult GetAdminPermissions()
         {
-            return Ok("Admin!");
+            return Ok("Admin Permissions!");
         }
 
-        [HttpPost("authenticate")]
-        public IActionResult Login([FromBody] LoginModel loginModel)
+        [Authorize(Roles = "Admin")]
+        [HttpGet("get-user-list")]
+        public IActionResult GetUserList()
         {
-            var claims = GetClaims(loginModel.Username, loginModel.Password);
+            var userList = userService.GetUserList();
 
-            var tokenSetting = new TokenSetting()
-            {
-                SecretKey = appSettings.DataAccessApiSecretKey,
-                Issuer = appSettings.ApiIssuer
-            };
-
-            return claims != null ? Ok(new JwtTokenService().GenerateToken(tokenSetting, loginModel.Username, claims, 10)) : Unauthorized();
-
+            return Ok(userList);
         }
 
-        private List<Claim>? GetClaims(string username, string password)
+        [Authorize]
+        [HttpGet("get-user-info")]
+        public IActionResult GetUserList(uint userID)
         {
-            if (username == "admin" || password == "123456")
-            {
-                return new List<Claim>
-                {
-                    new Claim(ClaimTypes.NameIdentifier, username),
-                    new Claim("customrole", "admin"),
-                };
-            }
+            var userList = userService.GetUserInfo(userID);
 
-            if (username == "user" || password == "123456")
-            {
-                return new List<Claim>
-                {
-                    new Claim(ClaimTypes.NameIdentifier, username),
-                    new Claim("customrole", "user"),
-                };
-            }
+            return Ok(userList);
+        }
 
-            return null;
+
+        [Authorize]
+        [HttpGet("get-role/{userID}")]
+        public IActionResult GetRole(int userID)
+        {
+            var role = userService.GetUserRole(userID);
+
+            return Ok(role);
+        }
+
+        [Authorize]
+        [HttpGet("get-refresh-token")]
+        public IActionResult GetRefreshToken(uint userID)
+        {
+            var roles = userService.GetUserRoles(userID);
+            var role = authService.GetRefreshToken(userID, roles);
+
+            return Ok(role);
         }
     }
 }

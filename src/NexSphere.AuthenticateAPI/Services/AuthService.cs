@@ -7,20 +7,20 @@ namespace NexSphere.AuthenticateAPI.Services
 {
     public interface IAuthService
     {
-        string GenerateJwtToken(string username, IEnumerable<string> roles);
+        string GenerateJwtToken(uint userID, IEnumerable<string> roles);
 
-        IEnumerable<string> GetUserRoles(int userId);
+        string GetRefreshToken(uint userID, IEnumerable<string> roles);
     }
 
     public class AuthService(IConfiguration configuration) : IAuthService
     {
-        public string GenerateJwtToken(string username, IEnumerable<string> roles)
+        public string GenerateJwtToken(uint userID, IEnumerable<string> roles)
         {
             var secretKey = configuration["JwtSettings:SecretKey"];
 
             var claims = new List<Claim>
                         {
-                            new(ClaimTypes.Name, username)
+                            new(ClaimTypes.Name, userID.ToString())
                         };
 
             foreach (var role in roles)
@@ -41,14 +41,9 @@ namespace NexSphere.AuthenticateAPI.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public IEnumerable<string> GetUserRoles(int userId)
+        public string GetRefreshToken(uint userID, IEnumerable<string> roles)
         {
-            if (userId == 1)
-            {
-                return ["admin"];
-            }
-
-            return ["user"];
+            return GenerateJwtToken(userID, roles);
         }
     }
 }
